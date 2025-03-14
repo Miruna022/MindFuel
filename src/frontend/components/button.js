@@ -1,4 +1,4 @@
-import { View, Stylesheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
 export const Button = () => {
     return (
@@ -8,7 +8,7 @@ export const Button = () => {
     )
 }
 
-const styles = Stylesheet.create(
+const styles = StyleSheet.create(
     {
         button: {
             corn
