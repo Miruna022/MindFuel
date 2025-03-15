@@ -81,10 +81,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
 
-    passwordVisibilityButton: {
-        backgroundColor: 'yellow',
-    },
-
     fieldName: {
         fontFamily: 'Inter-SemiBold',
         fontSize: 16,

@@ -27,6 +27,12 @@
     "plugins": [
       [
         "expo-font"
+      ],
+      [
+      "expo-custom-assets",
+        {
+          "assetsPaths": ["./assets/gif/loading_logo.gif"]
+        }
       ]
     ]
   }
