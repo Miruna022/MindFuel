@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, SafeAreaView, ImageBackground } from "react-native";
 import {Button} from "../components/Button";
+import {useFonts} from "expo-font";
 
 export const StartScreen = () => {
     return (
@@ -14,7 +15,7 @@ export const StartScreen = () => {
                     <Text style={styles.mottoTitle}>A fun new way to learn</Text>
                     <Text style={styles.mottoSubtitle}>All in your pocket</Text>
                 </View>
-                <Button text="Get Started" />
+                <Button text="Start now!"/>
             </View>
             </ImageBackground>
         </SafeAreaView>
@@ -53,14 +54,14 @@ const styles = StyleSheet.create(
         },
 
         mottoTitle: {
+            fontFamily: 'Inter-SemiBold',
             textAlign: 'center',
             fontSize: 30,
-            fontWeight: '700',
         },
 
         mottoSubtitle: {
+            fontFamily: 'Inter-Medium',
             fontSize: 24,
-            fontWeight: '500',
         }
     }
 )

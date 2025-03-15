@@ -1,10 +1,11 @@
-import { View, StyleSheet, Text } from 'react-native';
+import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {useFonts} from "expo-font";
 
 export const Button = ({ text }) => {
     return (
-        <View style={styles.button}>
-            <Text>{text}</Text>
-        </View>
+        <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText}>{text}</Text>
+        </TouchableOpacity>
     )
 }
 
@@ -16,15 +17,14 @@ const styles = StyleSheet.create(
             paddingHorizontal: 16,
             backgroundColor: '#8F6CC6',
             borderWidth: 3,
-            color: '#000',
             alignSelf: 'center',
             alignItems: 'center',
             width: '100%',
         },
 
         buttonText: {
-            fontWeight: 'bold',
-            fontSize: 20,
+            fontFamily: 'Inter-ExtraBold',
+            fontSize: 18,
         }
     }
 )
