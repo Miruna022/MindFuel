@@ -1,9 +1,9 @@
 import React from 'react';
-import {TouchableOpacity, Alert, Image, StyleSheet} from 'react-native';
+import {TouchableOpacity, Image, StyleSheet} from 'react-native';
 
-export const BackButton = () => {
+export const BackButton = ({onPress}) => {
     return (
-        <TouchableOpacity onPress={() => {Alert.alert("You are going back")}}>
+        <TouchableOpacity style={styles.press} onPress={onPress}>
             <Image source={require('../assets/left.png')} style={styles.backIcon} />
         </TouchableOpacity>
     )
@@ -18,6 +18,8 @@ const styles = StyleSheet.create({
     backIcon: {
         width: 30,
         height: 30,
+    },
+    press: {
         right: 45,
     },
 })
