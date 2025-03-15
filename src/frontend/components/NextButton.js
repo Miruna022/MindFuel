@@ -1,12 +1,15 @@
 import React from 'react';
-import {TouchableOpacity, Alert, Image, StyleSheet, View, Text} from 'react-native';
+import {TouchableOpacity, Image, StyleSheet, View, Text} from 'react-native';
 
-export const NextButton = () => {
+export const NextButton = ({isLast, onPress}) => {
     return (
-        <TouchableOpacity style={styles.button} onPress={() => {Alert.alert("Next button pressed :D")}}>
+        <TouchableOpacity style={styles.button} onPress={onPress}>
             <View style={styles.content}>
-                <Text style={styles.buttonNext}>Next</Text>
-                <Image source={require('../assets/right.png')} style={styles.nextIcon} />
+                <Text style={[styles.buttonNext, isLast ? styles.saveButton: {}]}>{isLast ? "Finish" : "Next"}</Text>
+                {!isLast && (
+                    <Image source={require('../assets/right.png')} style={styles.nextIcon} />
+                )
+                }
             </View>
         </TouchableOpacity>
     )
@@ -32,7 +35,9 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         backgroundColor: '#8F6CC6',
         marginBottom: -20,
-
+    },
+    saveButton: {
+        marginRight: 40,
     },
     buttonNext: {
         fontSize: 30,
