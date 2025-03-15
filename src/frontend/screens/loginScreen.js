@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: '#fff',
         flex: 1,
+        paddingTop: 50,
     },
 
     authContainer: {
