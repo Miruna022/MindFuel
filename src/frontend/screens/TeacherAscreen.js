@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 
-const TeacherAscreen = () => {
+export const TeacherAscreen = () => {
     return (
         <View style={styles.container}>
             <Image source={require("../assets/A.png")} style={styles.background} />
@@ -9,7 +9,7 @@ const TeacherAscreen = () => {
             <Image source={require("../assets/profA.png")} style={styles.professorImage} />
 
             <View style={styles.card}>
-                <Text style={styles.cardTitle}>Storyteller Professor</Text>
+                <Text style={styles.cardTitle}>The Storyteller</Text>
                 <Text style={styles.cardText}>• Learning through engaging narratives</Text>
                 <Text style={styles.cardText}>• Enthusiastic and energetic explanations</Text>
             </View>
@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "#000", // fallback color
     },
     background: {
         position: "absolute",
@@ -35,50 +34,43 @@ const styles = StyleSheet.create({
         resizeMode: "cover",
     },
     title: {
-        fontSize: 36,
-        fontWeight: "bold",
-        marginBottom: 15,
-        color: "#000",
+        fontSize: 34,
+        fontFamily: "Inter-Bold",
+        marginTop: 45,
         textAlign: "center",
     },
     professorImage: {
         width: 270,
         height: 270,
-        marginBottom: 8,
     },
     card: {
         backgroundColor: "white",
-        paddingLeft: 20,
-        paddingRight: 20,
-        paddingTop: 10,
-        paddingBottom: 10,
-        borderRadius: 10,
-        shadowColor: "#000",
-        borderWidth: 2,
+        padding: 20,
+        borderRadius: 29,
+        borderWidth: 3,
         marginBottom: 30,
     },
     cardTitle: {
-        fontSize: 28,
-        fontWeight: "bold",
+        fontSize: 26,
+        fontFamily: "Inter-SemiBold",
         marginBottom: 10,
         textAlign: "center",
     },
     cardText: {
-        fontSize: 22,
+        fontSize: 20,
+        fontFamily: "Inter-Regular",
         textAlign: "left",
     },
     button: {
         backgroundColor: "black",
-        padding: 20,
+        padding: 15,
         borderRadius: 5,
-        width: "60%",
-        alignItems: "center", // Center text inside the button
+        width: "90%",
+        alignItems: "center",
     },
     buttonText: {
         color: "white",
-        fontWeight: "bold",
-        fontSize: 15,
+        fontFamily: "Inter-Medium",
+        fontSize: 22,
     },
 });
-
-export default TeacherAscreen;
