@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {Text, StyleSheet, View, Alert} from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {AnswerButton} from "../components/AnswerButton";
 import {BackButton} from "../components/BackButton";
 import {NextButton} from "../components/NextButton";
+import {useNavigation} from '@react-navigation/native';
 
 export const AnswerScreen = () => {
+    const navigation = useNavigation();
     const [selectedAnswers, setSelectedAnswers] = useState({});
     const [indexQ, setIndexQ] = useState(0);
     const [preferenceCount, setPreferenceCount] = useState({});
@@ -71,15 +73,14 @@ export const AnswerScreen = () => {
             const chosen = finalLetter[0];
 
             if (chosen.length === 1) {
-                const maxLetter = maxLetters[0];
-                if (maxLetter === 'A') {
-                    Alert.alert("Professor", "Storyteller Professor");
-                } else if (maxLetter === 'B') {
-                    Alert.alert("Professor", "Mentor Professor");
-                } else if (maxLetter === 'C') {
-                    Alert.alert("Professor", "Direct Professor");
-                } else if (maxLetter === 'D') {
-                    Alert.alert("Professor", "Friendly Professor");
+                if (chosen === 'A') {
+                    navigation.navigate('TeacherA');
+                } else if (chosen === 'B') {
+                    navigation.navigate('TeacherB');
+                } else if (chosen === 'C') {
+                    navigation.navigate('TeacherC');
+                } else if (chosen === 'D') {
+                    navigation.navigate('TeacherD');
                 }
             }
         } catch (error) {

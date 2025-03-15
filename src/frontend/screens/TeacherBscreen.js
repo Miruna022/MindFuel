@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 
-const TeacherBscreen = () => {
+export const TeacherBscreen = () => {
     return (
         <View style={styles.container}>
             <Image source={require("../assets/B.png")} style={styles.background} />
@@ -9,7 +9,7 @@ const TeacherBscreen = () => {
             <Image source={require("../assets/profB.png")} style={styles.professorImage} />
 
             <View style={styles.card}>
-                <Text style={styles.cardTitle}>Mentor Professor</Text>
+                <Text style={styles.cardTitle}>The Mentor</Text>
                 <Text style={styles.cardText}>• Calm and structured guidance</Text>
                 <Text style={styles.cardText}>• Professional and balanced teaching style</Text>
             </View>
@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "#000", // fallback color
     },
     background: {
         position: "absolute",
@@ -35,48 +34,44 @@ const styles = StyleSheet.create({
         resizeMode: "cover",
     },
     title: {
-        fontSize: 36,
-        fontWeight: "bold",
-        marginBottom: 15,
-        color: "#000",
+        fontSize: 34,
+        fontFamily: "Inter-Bold",
+        marginTop: 45,
         textAlign: "center",
     },
     professorImage: {
         width: 270,
         height: 270,
-        marginBottom: 8,
     },
     card: {
         backgroundColor: "white",
         padding: 20,
-        borderRadius: 10,
-        shadowColor: "#000",
-        borderWidth: 2,
+        borderRadius: 29,
+        borderWidth: 3,
         marginBottom: 30,
         width: "90%",
     },
     cardTitle: {
-        fontSize: 28,
-        fontWeight: "bold",
+        fontSize: 26,
+        fontFamily: "Inter-SemiBold",
         marginBottom: 10,
         textAlign: "center",
     },
     cardText: {
-        fontSize: 22,
+        fontSize: 20,
+        fontFamily: "Inter-Regular",
         textAlign: "left",
     },
     button: {
         backgroundColor: "black",
-        padding: 20,
+        padding: 15,
         borderRadius: 5,
-        width: "60%",
+        width: "90%",
         alignItems: "center",
     },
     buttonText: {
         color: "white",
-        fontWeight: "bold",
-        fontSize: 15,
+        fontFamily: "Inter-Medium",
+        fontSize: 22,
     },
 });
-
-export default TeacherBscreen;
