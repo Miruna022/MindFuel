@@ -1,5 +1,4 @@
 import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
-import {useFonts} from "expo-font";
 
 export const Button = ({ text }) => {
     return (

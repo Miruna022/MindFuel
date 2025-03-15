@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, SafeAreaView, ImageBackground } from "react-native";
 import {Button} from "../components/Button";
-import {useFonts} from "expo-font";
 
 export const StartScreen = () => {
     return (
@@ -43,17 +42,19 @@ const styles = StyleSheet.create(
             borderRadius: 40,
             borderWidth: 2,
             backgroundColor: '#fff',
-            width: 373,
-            height: 333,
+            width: '90%',
+            height: '50%',
             padding: 33,
         },
 
         mottoContainer: {
-            flex: 3/5,
+            flex: 4/5,
             alignItems: 'center',
         },
 
         mottoTitle: {
+            // NOTE: Avoid adding font weights since
+            //  undefined behaviour (font not loading)
             fontFamily: 'Inter-SemiBold',
             textAlign: 'center',
             fontSize: 30,

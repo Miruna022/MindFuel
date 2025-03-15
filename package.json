@@ -2,6 +2,7 @@
   "dependencies": {
     "@expo-google-fonts/inter": "^0.2.3",
     "expo-font": "^13.0.4",
-    "expo-splash-screen": "~0.29.22"
+    "expo-splash-screen": "~0.29.22",
+    "react-native-ionicons": "^4.6.5"
   }
 }
