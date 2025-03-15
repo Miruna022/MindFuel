@@ -1,8 +1,8 @@
 import {View, StyleSheet, Text, Image} from 'react-native';
 
-export const LogoBanner = () => {
+export const LogoBanner = ({style = null}) => {
     return (
-        <View style={styles.banner}>
+        <View style={[styles.banner, style]}>
             <Image source={require('../assets/logo_splash_icon.webp')} style={styles.logoImage}/>
             <Text style={styles.logoText}>MindFuel</Text>
         </View>

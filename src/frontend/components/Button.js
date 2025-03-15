@@ -1,10 +1,15 @@
 import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 
-export const Button = ({ text }) => {
+// onPress should be a mandatory prop
+export const Button = ({ text, style = null, buttonStyle = null, onPress=null }) => {
     return (
-        <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>{text}</Text>
-        </TouchableOpacity>
+        <View style={[style, {width: '100%'}]}>
+            <TouchableOpacity
+                style={[styles.button, buttonStyle]}
+                onPress={onPress}>
+                <Text style={styles.buttonText}>{text}</Text>
+            </TouchableOpacity>
+        </View>
     )
 }
 

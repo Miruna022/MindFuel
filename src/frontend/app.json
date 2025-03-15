@@ -28,7 +28,12 @@
       [
         "expo-font"
       ],
-      "react-native-video"
+      [
+      "expo-custom-assets",
+        {
+          "assetsPaths": ["./assets/gif/loading_logo.gif"]
+        }
+      ]
     ]
   }
 }

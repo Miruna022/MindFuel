@@ -1,8 +1,12 @@
 import React from "react";
 import { View, Text, StyleSheet, SafeAreaView, ImageBackground } from "react-native";
 import {Button} from "../components/Button";
+import {useNavigation} from "@react-navigation/native";
 
 export const StartScreen = () => {
+
+    const navigation = useNavigation();
+
     return (
         <SafeAreaView style={styles.container}>
             <ImageBackground
@@ -14,7 +18,7 @@ export const StartScreen = () => {
                     <Text style={styles.mottoTitle}>A fun new way to learn</Text>
                     <Text style={styles.mottoSubtitle}>All in your pocket</Text>
                 </View>
-                <Button text="Start now!"/>
+                <Button text="Start now!" onPress={() => navigation.navigate('CreateAccount')}/>
             </View>
             </ImageBackground>
         </SafeAreaView>
@@ -43,12 +47,12 @@ const styles = StyleSheet.create(
             borderWidth: 2,
             backgroundColor: '#fff',
             width: '90%',
-            height: '50%',
+            height: '60%',
             padding: 33,
         },
 
         mottoContainer: {
-            flex: 4/5,
+            flex: 2/5,
             alignItems: 'center',
         },
 
