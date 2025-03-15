@@ -7,6 +7,10 @@ import {CreateAccountScreen} from "./screens/createAccountScreen";
 import {LoginScreen} from "./screens/loginScreen";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import {createStaticNavigation, NavigationContainer} from "@react-navigation/native";
+import TeacherAscreen from "./screens/TeacherAscreen";
+import TeacherBscreen from "./screens/TeacherBscreen";
+import TeacherCscreen from "./screens/TeacherCscreen";
+import TeacherDscreen from "./screens/TeacherDscreen";
 
 const RootStack = createNativeStackNavigator({
     initialRouteName: 'Start',
@@ -14,6 +18,11 @@ const RootStack = createNativeStackNavigator({
         Start: StartScreen,
         CreateAccount: CreateAccountScreen,
         Login: LoginScreen,
+        Quiz: AnswerScreen,
+        TeacherA: TeacherAscreen,
+        TeacherB: TeacherBscreen,
+        TeacherC: TeacherCscreen,
+        TeacherD: TeacherDscreen,
     },
     screenOptions: {
         headerShown: false,
@@ -30,6 +39,6 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+      flex: 1,
   },
 });
