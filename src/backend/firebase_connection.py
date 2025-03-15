@@ -32,9 +32,16 @@ def get(location_in_db,file):
     blob = bucket.blob(location_in_db)
     blob.download_to_filename(file)
 
+def display_contents(location_in_db):
+    blobs = bucket.list_blobs()
+    for blob in blobs:
+        print(blob.name if location_in_db in blob.name[:-1] else "")
 
-for blob in blobs:
-    print(blob.name)
+
+get("USER_DATA/user_1/PDF_DATA/pdf_1/AUDIO/audio_0","audio0.wav")
+get("USER_DATA/user_1/PDF_DATA/pdf_1/AUDIO/audio_1","audio1.wav")
+
+
 
 
 #Still frontend put("USER_DATA/USER_(ID)/PDF_DATA/PDF_(ID)/raw.pdf","pdf_to_upload.pdf")
