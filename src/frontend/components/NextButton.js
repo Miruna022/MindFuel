@@ -1,12 +1,12 @@
 import React from 'react';
 import {TouchableOpacity, Image, StyleSheet, View, Text} from 'react-native';
 
-export const NextButton = ({isLast, onPress}) => {
+export const NextButton = ({isLast, onPress, disabled}) => {
     return (
-        <TouchableOpacity style={styles.button} onPress={onPress}>
+        <TouchableOpacity style={[styles.button, disabled && styles.disabledButton]} onPress={onPress} disabled={disabled}>
             <View style={styles.content}>
-                <Text style={[styles.buttonNext, isLast ? styles.saveButton: {}]}>{isLast ? "Finish" : "Next"}</Text>
-                {!isLast && (
+                <Text style={[styles.buttonText, isLast ? styles.saveButton: {}, disabled && styles.disabledText]}>{isLast ? "Finish" : "Next"}</Text>
+                {!isLast && !disabled && (
                     <Image source={require('../assets/right.png')} style={styles.nextIcon} />
                 )
                 }
@@ -36,16 +36,24 @@ const styles = StyleSheet.create({
         backgroundColor: '#8F6CC6',
         marginBottom: -20,
     },
+    disabledButton: {
+        backgroundColor: '#D3D3D3',
+        borderColor: '#D3D3D3',
+    },
     saveButton: {
         marginRight: 40,
     },
-    buttonNext: {
+    buttonText: {
         fontSize: 30,
         fontWeight: 'bold',
         color: 'black',
         textAlign: 'center',
         marginLeft: 25,
         width: '80%',
+    },
+    disabledText: {
+        marginRight: 40,
+        color: '#A9A9A9',
     },
     nextIcon: {
         width: 50,

@@ -52,7 +52,7 @@ const CoursesScreen = () => {
             {/* Add New Course Button */}
             <TouchableOpacity
                 style={styles.addButton}
-                onPress={() => setShowModal(true)} // Open modal to add new course
+                onPress={() => setShowModal(true)} // Open to add new course
             >
                 <Text style={styles.addButtonText}>+</Text>
             </TouchableOpacity>
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     addButton: {
-        backgroundColor: "#D3D3D3", // Light gray to resemble folder
+        backgroundColor: "#D3D3D3",
         borderRadius: 10,
         width: 90,
         height: 90,
@@ -140,8 +140,8 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         borderRadius: 10,
         alignItems: "center",
-        borderWidth: 1, // Adding a border to the modal
-        borderColor: "#ccc", // Light border color
+        borderWidth: 1,
+        borderColor: "#ccc",
     },
     modalHeader: {
         fontSize: 23,
@@ -157,16 +157,16 @@ const styles = StyleSheet.create({
         borderColor: "#ccc",
     },
     addCourseButton: {
-        backgroundColor: "#BD7CE2", // New button color (purple)
-        borderRadius: 13, // Rounded corners
+        backgroundColor: "#BD7CE2",
+        borderRadius: 13,
         padding: 5,
         width: "80%",
         alignItems: "center",
         marginVertical: 10,
     },
     cancelButton: {
-        backgroundColor: "#E27C7C", // New button color (red)
-        borderRadius: 13, // Rounded corners
+        backgroundColor: "#E27C7C",
+        borderRadius: 13,
         padding: 4,
         width: "60%",
         alignItems: "center",
