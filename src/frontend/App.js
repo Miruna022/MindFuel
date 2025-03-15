@@ -5,15 +5,18 @@ import { useFonts } from 'expo-font';
 import {AnswerScreen} from "./screens/answerScreen";
 import {CreateAccountScreen} from "./screens/createAccountScreen";
 import {LoginScreen} from "./screens/loginScreen";
+import {AnswerScreen} from "./screens/answerScreen";
+import {TeacherAscreen} from "./screens/TeacherAscreen";
+import {TeacherBscreen} from "./screens/TeacherBscreen";
+import {TeacherCscreen} from "./screens/TeacherCscreen";
+import {TeacherDscreen} from "./screens/TeacherDscreen";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import {createStaticNavigation, NavigationContainer} from "@react-navigation/native";
-import TeacherAscreen from "./screens/TeacherAscreen";
-import TeacherBscreen from "./screens/TeacherBscreen";
-import TeacherCscreen from "./screens/TeacherCscreen";
-import TeacherDscreen from "./screens/TeacherDscreen";
+import {SectionsScreen} from "./screens/CoursesScreen";
+import {SectionDetailsScreen} from "./screens/SectionsDetails";
 
 const RootStack = createNativeStackNavigator({
-    initialRouteName: 'Start',
+    initialRouteName: 'Courses',
     screens: {
         Start: StartScreen,
         CreateAccount: CreateAccountScreen,
@@ -23,6 +26,8 @@ const RootStack = createNativeStackNavigator({
         TeacherB: TeacherBscreen,
         TeacherC: TeacherCscreen,
         TeacherD: TeacherDscreen,
+        Courses: SectionsScreen,
+        Section: SectionDetailsScreen,
     },
     screenOptions: {
         headerShown: false,
@@ -39,6 +44,6 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-      flex: 1,
+    flex: 1,
   },
 });

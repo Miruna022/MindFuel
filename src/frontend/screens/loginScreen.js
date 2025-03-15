@@ -58,8 +58,7 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: '#fff',
         flex: 1,
-        paddingTop: 20,
-
+        paddingTop: 20
     },
 
     authContainer: {
@@ -90,22 +89,3 @@ const styles = StyleSheet.create({
         textDecorationLine: 'underline',
     }
 })
-
-/*
-<SafeAreaView style={styles.container}>
-            <LogoBanner style={{flex: 1/9}}/>
-            <View style={styles.titleCard}>
-                <Text style={styles.titleText}>Welcome back!</Text>
-            </View>
-            <View style={styles.authContainer}>
-                <TextInput fieldName={'Enter your email'} placeholder={'e.g. john.doe@gmail.com'} type={'text'} onChangeText = {setEmail}/>
-                <TextInput fieldName={'Enter your password'} placeholder={''} type={'password'} onChangeText = {setPassword}/>
-                <Button
-                    text={'Sign in'}
-                    style={{width: '100%', paddingHorizontal: '12', marginBottom: '12'}}
-                    buttonStyle={{backgroundColor: '#C3B1E3'}}
-                    onPress={() => signIn({email: email.trim(), password: password.trim()})}
-                />
-            </View>
-        </SafeAreaView>
- */

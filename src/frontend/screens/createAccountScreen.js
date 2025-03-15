@@ -100,39 +100,4 @@ const styles = StyleSheet.create({
     }
 })
 
-/*
-<SafeAreaView style={styles.container}>
-            <LogoBanner style={{flex: 1/9}}/>
-            <View style={styles.titleCard}>
-                <Text style={styles.titleText}>Create account</Text>
-            </View>
-            <View style={styles.authContainer}>
-                <TextInput
-                    placeholder={'e.g. john.doe@gmail.com'}
-                    type={'text'} onChangeText={setEmail}/>
-                <TextInput
-                placeholder={'min. 8 characters'}
-                type={'password'}
-                onChangeText={setPassword}
-                />
-                <Button
-                    text={'Continue'}
-                    style={{width: '100%', paddingHorizontal: '12', marginBottom: '12'}}
-                    buttonStyle={{backgroundColor: '#C3B1E3'}}
-                    onPress={() => register({email: email.trim(), password: password.trim()})}
-                />
-                <View style={{flexDirection: 'row', paddingHorizontal: 12}}>
-                    <Text style={styles.logInText}>Already have an account? </Text>
-                        <TouchableOpacity>
-                            <Text
-                                style={styles.pressableLogInText}
-                                onPress={() => navigation.reset({index: 1, routes: [
-                                        {name: 'Start'},
-                                        {name: 'Login'},
-                                        ]})}
-                            >Log in</Text>
-                        </TouchableOpacity>
-                </View>
-            </View>
-        </SafeAreaView>
- */
+
