@@ -11,10 +11,11 @@ import {TeacherCscreen} from "./screens/TeacherCscreen";
 import {TeacherDscreen} from "./screens/TeacherDscreen";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import {createStaticNavigation, NavigationContainer} from "@react-navigation/native";
-import CoursesScreen from "./screens/CoursesScreen";
+import {SectionsScreen} from "./screens/CoursesScreen";
+import {SectionDetailsScreen} from "./screens/SectionsDetails";
 
 const RootStack = createNativeStackNavigator({
-    initialRouteName: 'Start',
+    initialRouteName: 'Courses',
     screens: {
         Start: StartScreen,
         CreateAccount: CreateAccountScreen,
@@ -24,6 +25,8 @@ const RootStack = createNativeStackNavigator({
         TeacherB: TeacherBscreen,
         TeacherC: TeacherCscreen,
         TeacherD: TeacherDscreen,
+        Courses: SectionsScreen,
+        Section: SectionDetailsScreen,
     },
     screenOptions: {
         headerShown: false,
