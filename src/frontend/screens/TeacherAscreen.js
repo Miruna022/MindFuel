@@ -1,7 +1,11 @@
 import React from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 export const TeacherAscreen = () => {
+
+    const navigator = useNavigation();
+
     return (
         <View style={styles.container}>
             <Image source={require("../assets/A.png")} style={styles.background} />
@@ -14,7 +18,7 @@ export const TeacherAscreen = () => {
                 <Text style={styles.cardText}>• Enthusiastic and energetic explanations</Text>
             </View>
 
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress={() => {navigator.navigate("Courses")}}>
                 <Text style={styles.buttonText}>Start studying</Text>
             </TouchableOpacity>
         </View>

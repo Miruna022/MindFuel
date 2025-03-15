@@ -19,8 +19,7 @@ export const LoginScreen = () => {
         try {
             console.log(`Received email: ${email} and password: ${password}`)
             await signInWithEmailAndPassword(auth, email, password);
-            // TODO: Should be CoursesScreen
-            navigator.navigate('Start')
+            navigator.navigate('Courses')
         } catch (error) {
             Alert.alert("Error when logging into account",
                 "Failed to log in into the account: " + error)

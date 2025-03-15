@@ -2,7 +2,6 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { StartScreen } from './screens/startScreen';
 import { useFonts } from 'expo-font';
-import {AnswerScreen} from "./screens/answerScreen";
 import {CreateAccountScreen} from "./screens/createAccountScreen";
 import {LoginScreen} from "./screens/loginScreen";
 import {AnswerScreen} from "./screens/answerScreen";

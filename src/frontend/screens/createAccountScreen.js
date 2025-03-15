@@ -10,6 +10,9 @@ import {auth} from "../firebase/config";
 
 export const CreateAccountScreen = () => {
 
+    // TODO: Alert if email the user tries to register with
+    //  is already taken (FirebaseError)
+
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const navigation = useNavigation()
