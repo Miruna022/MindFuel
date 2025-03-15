@@ -23,12 +23,12 @@ print(tts.speakers)
 
 
 # TTS to a file, use a preset speaker
-def create_audio():
+def create_audio(file_path):
   tts.tts_to_file(
     text= shared_variable.output_text,
     speaker="Craig Gutsy",
     language="en",
-    file_path="output.wav"
+    file_path=file_path
   )
 
 
