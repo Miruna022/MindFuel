@@ -7,6 +7,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import AntDesign from '@expo/vector-icons/AntDesign';
 import * as DocumentPicker from "expo-document-picker";
 import {useNavigation} from "@react-navigation/native";
+import LoadVidScreen from "./LoadVidScreen"
 
 export const SectionDetailsScreen = ({route}) => {
     const sectionName = route.params.sectionName;
@@ -210,7 +211,7 @@ export const SectionDetailsScreen = ({route}) => {
                 <Text style={styles.headerSection}>{sectionName}</Text>
             </View>
             {loading ? (
-                <ActivityIndicator size="large" color="#0000ff"/>
+                <LoadVidScreen/>
             ) : sections.length > 0 ? (
                 <>
 
