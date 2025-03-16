@@ -5,7 +5,7 @@ import {LogoBanner} from "../components/LogoBanner";
 import {InputField} from "../components/InputField";
 import {StackActions} from "@react-navigation/native";
 import {createUserWithEmailAndPassword} from "firebase/auth";
-import {useNavigation} from '@react-navigation/native';``
+import {useNavigation} from '@react-navigation/native';
 import {auth} from "../firebase/config";
 
 
@@ -56,7 +56,7 @@ export const CreateAccountScreen = () => {
                         <TouchableOpacity>
                             <Text
                                 style={styles.pressableLogInText}
-                                onPress={() => navigator.navigate('Login')}
+                                onPress={() => navigation.navigate('Login')}
                             >Log in</Text>
                         </TouchableOpacity>
                 </View>

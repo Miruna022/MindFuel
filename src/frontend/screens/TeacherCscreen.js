@@ -13,7 +13,7 @@ export const TeacherCscreen = () => {
             <Image source={require("../assets/profC.png")} style={styles.professorImage} />
 
             <View style={styles.card}>
-                <Text style={styles.cardTitle}>The Direct Professor</Text>
+                <Text style={styles.cardTitle}>The Scholar</Text>
                 <Text style={styles.cardText}>• Straight to the point, no sugar coating</Text>
                 <Text style={styles.cardText}>• Fast and highly efficient learning</Text>
             </View>
