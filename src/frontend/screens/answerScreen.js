@@ -19,10 +19,10 @@ export const AnswerScreen = () => {
         'How often should the teacher make reviews?'
     ];
     const answers = [
-        ['Clear structure', 'Make it engaging', 'Concise and to the point', 'Immersive, story driven'],
+        ['Clear, organized structure', 'Make it engaging', 'Concise and to the point', 'Immersive, story driven'],
         ['Friendly, energetic', 'Calm, professional', 'Casual, humorous', 'Deep, thoughtful'],
         ['Slow and detailed', 'Medium speed', 'Fast paced, efficient', 'Adjustable'],
-        ['By adding humour and personality', 'By using dramatic story telling', 'By keeping things and efficient', 'By relating things to real-world applications'],
+        ['By adding humour and personality', 'By using dramatic story telling', 'By keeping things direct and efficient', 'By relating things to real-world applications'],
         ['Frequent recaps', 'Summary at the end of each lesson', 'Occasional takeaways', 'No repetition']
     ];
     const preferenceLetters = [
