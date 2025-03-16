@@ -1,8 +1,9 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
-import { Video } from "expo-av";
+import {Video} from "expo-av";
 
 const LoadVidScreen = () => {
+
     return (
         <View style={styles.container}>
             <Video
@@ -11,6 +12,7 @@ const LoadVidScreen = () => {
                 resizeMode="contain"
                 shouldPlay
                 isLooping
+                rate={2.0}
             />
         </View>
     );
@@ -24,8 +26,8 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     video: {
-        width: 250,
-        height: 250,
+        width: 200,
+        height: 200,
     },
 });
 
