@@ -1,40 +1,74 @@
 import React, { useState, useEffect } from "react";
-import {StyleSheet, Text, View, TouchableOpacity, TextInput, Alert, FlatList, ActivityIndicator} from "react-native";
+import {
+    StyleSheet,
+    Text,
+    View,
+    TouchableOpacity,
+    TextInput,
+    Alert,
+    FlatList,
+    ActivityIndicator,
+    ScrollView, RefreshControl
+} from "react-native";
 import {auth, storage} from "../firebase/config";
-import { ref, listAll } from "firebase/storage";
+import { ref, listAll, uploadBytes } from "firebase/storage";
 import {useNavigation} from '@react-navigation/native';
-
+import AntDesign from '@expo/vector-icons/AntDesign';
 
 export const SectionsScreen = () => {
     const navigation = useNavigation();
     const [sections, setSections] = useState([]);
     const [loading, setLoading] = useState(true);
-    // const userEmail = auth.currentUser?.email
-    const userEmail = "demo@live.com";
+    const [newSectionName, setNewSectionName] = useState("");
+
+    const userEmail = auth.currentUser?.email;
+
+    const fetchSections = async () => {
+        try {
+            setLoading(true);
+            const userStorageRef = ref(storage, `USER_DATA/${userEmail}/PDF_DATA`);
+            const result = await listAll(userStorageRef);
+
+            const sectionsSet = new Set();
+
+            result.prefixes.forEach((folderRef) => {
+                sectionsSet.add(folderRef.name);
+            });
+
+            setSections(Array.from(sectionsSet));
+        } catch (error) {
+            console.error("Error fetching sections:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     useEffect(() => {
-        const fetchSections = async () => {
-            try {
-                const userStorageRef = ref(storage, `USER_DATA/${userEmail}/PDF_DATA`);
-                const result = await listAll(userStorageRef);
-
-                const pdfIdsSet = new Set();
-
-                result.prefixes.forEach((folderRef) => {
-                    pdfIdsSet.add(folderRef.name);
-                });
-
-                setSections(Array.from(pdfIdsSet));
-            } catch (error) {
-                console.error("Error fetching sections:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
         fetchSections();
     }, []);
 
+    const createSection = async () => {
+        if (!newSectionName.trim()) {
+            Alert.alert("Error", "Section name cannot be empty.");
+            return;
+        }
+
+        try {
+            const sectionRef = ref(storage, `USER_DATA/${userEmail}/PDF_DATA/${newSectionName}/.placeholder.txt`);
+            const dummyFile = new Blob(["placeholder title"], { type: "text/plain" });
+
+            await uploadBytes(sectionRef, dummyFile);
+
+            setNewSectionName("");
+        } catch (error) {
+            console.error("error creating section:", error);
+            Alert.alert("Error", "Failed to create section.");
+        }
+        await fetchSections();
+    };
+
     return (
-        <View style={styles.container}>
+        <View style = {styles.container}>
             <Text style={styles.header}>My Courses</Text>
             {loading ? (
                 <ActivityIndicator size="large" color="#0000ff" />
@@ -45,7 +79,7 @@ export const SectionsScreen = () => {
                               keyExtractor={(item) => item}
                               numColumns={2}
                               renderItem={({ item }) => (
-                                  <TouchableOpacity style={styles.folder} onPress={() => navigation.navigate("Section", { pdfId: item })}>
+                                  <TouchableOpacity style={styles.folder} onPress={() => navigation.navigate("Section", { sectionName: item })}>
                                       <Text style={styles.text}>{item}</Text>
                                   </TouchableOpacity>
                               )}
@@ -54,8 +88,14 @@ export const SectionsScreen = () => {
             ) : (
                 <Text>No sections found.</Text>
             )}
-            <TouchableOpacity style={styles.addButton}>
-                <Text style={styles.addButtonText}>+</Text>
+            <TextInput
+                style={styles.input}
+                placeholder="Enter section name"
+                value={newSectionName}
+                onChangeText={setNewSectionName}
+            />
+            <TouchableOpacity style={styles.addButton} onPress={() => createSection()}>
+                <AntDesign name="pluscircle" size={64} color="black" />
             </TouchableOpacity>
         </View>
     )
@@ -93,22 +133,21 @@ const styles = StyleSheet.create({
         marginBottom: 12,
     },
     addButton: {
-        backgroundColor: "#ADADAD",
-        width: 80,
-        height: 80,
         borderRadius: 50,
         alignItems: "center",
         justifyContent: "center",
-        marginTop: 50,
+        marginTop: 20,
     },
-    addButtonText: {
-        color: "#fff",
-        fontSize: 40,
-        fontWeight: "bold"
-    },
+
     text: {
         fontSize: 18,
         fontFamily: "Inter-SemiBold",
         textAlign: "center",
+    },
+    input: {
+        marginTop: 40,
+        borderRadius: 8,
+        borderWidth: 2,
+        paddingHorizontal: 50,
     }
 });

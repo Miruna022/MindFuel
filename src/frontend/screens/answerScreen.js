@@ -5,9 +5,12 @@ import {AnswerButton} from "../components/AnswerButton";
 import {BackButton} from "../components/BackButton";
 import {NextButton} from "../components/NextButton";
 import {useNavigation} from '@react-navigation/native';
+import {getStorage, ref, uploadBytes} from "firebase/storage";
+import { auth } from "../firebase/config";
 
 export const AnswerScreen = () => {
     const navigation = useNavigation();
+    const userEmail = auth.currentUser?.email;
     const [selectedAnswers, setSelectedAnswers] = useState({});
     const [indexQ, setIndexQ] = useState(0);
     const [preferenceCount, setPreferenceCount] = useState({});
@@ -19,10 +22,10 @@ export const AnswerScreen = () => {
         'How often should the teacher make reviews?'
     ];
     const answers = [
-        ['Clear structure', 'Make it engaging', 'Concise and to the point', 'Immersive, story driven'],
+        ['Clear, organized structure', 'Make it engaging', 'Concise and to the point', 'Immersive, story driven'],
         ['Friendly, energetic', 'Calm, professional', 'Casual, humorous', 'Deep, thoughtful'],
         ['Slow and detailed', 'Medium speed', 'Fast paced, efficient', 'Adjustable'],
-        ['By adding humour and personality', 'By using dramatic story telling', 'By keeping things and efficient', 'By relating things to real-world applications'],
+        ['By adding humour and personality', 'By using dramatic story telling', 'By keeping things direct and efficient', 'By relating things to real-world applications'],
         ['Frequent recaps', 'Summary at the end of each lesson', 'Occasional takeaways', 'No repetition']
     ];
     const preferenceLetters = [
@@ -60,29 +63,62 @@ export const AnswerScreen = () => {
             })
         }
     };
+    const addJSON = async (jsonData, filepath) => {
+        const storage = getStorage();
+        const pathReference = ref(storage, filepath);
+
+        try {
+
+            const fileBlob = new Blob([JSON.stringify(jsonData, null, 2)], { type: "application/json" });
+
+            await uploadBytes(pathReference, fileBlob);
+            console.log("JSON file uploaded successfully:", filepath);
+        } catch (error) {
+            console.error("Error when uploading JSON file:", error);
+        }
+    };
 
     const handleSave = async () => {
         try {
+
             await AsyncStorage.setItem('userAnswers', JSON.stringify(selectedAnswers));
             await AsyncStorage.setItem('userPreference', JSON.stringify(preferenceLetters));
 
+
             const maxCount = Math.max(...Object.values(preferenceCount));
-            const maxLetters = Object.entries(preferenceCount).filter(([letter, count]) => count === maxCount).map(([letter]) => letter);
+            const maxLetters = Object.entries(preferenceCount)
+                .filter(([letter, count]) => count === maxCount)
+                .map(([letter]) => letter);
 
             const finalLetter = maxLetters.length > 1 ? prioritize(maxLetters) : maxLetters;
             const chosen = finalLetter[0];
 
+            let teacher;
+
             if (chosen.length === 1) {
                 if (chosen === 'A') {
                     navigation.navigate('TeacherA');
+                    teacher = "Story";
                 } else if (chosen === 'B') {
                     navigation.navigate('TeacherB');
+                    teacher = "Mentor";
                 } else if (chosen === 'C') {
                     navigation.navigate('TeacherC');
+                    teacher = "Direct";
                 } else if (chosen === 'D') {
                     navigation.navigate('TeacherD');
+                    teacher = "Friendly";
                 }
             }
+
+
+            const jsonData = {
+                teacher,
+            };
+
+            const filePath = `USER_DATA/${userEmail}/SETTINGS/preferences.json`;
+            await addJSON(jsonData, filePath);
+
         } catch (error) {
             console.error("Error saving answers: ", error);
         }

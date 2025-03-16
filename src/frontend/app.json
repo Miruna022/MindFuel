@@ -19,6 +19,9 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
+      },
+      "playback": {
+        "allowsBackgroundAudioPlayback": true
       }
     },
     "web": {

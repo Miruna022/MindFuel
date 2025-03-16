@@ -5,60 +5,20 @@ import { useState } from "react";
 export const InputField = ({
     fieldName,
     placeholder,
-    type
+    onChangeText,
+    style = null
    }) => {
 
-    const [isFilled, setIsFilled] = useState(false);
-
-    const handleTextChange = (text) => {
-        setIsFilled(text.length > 0);
-    };
-
     return (
-        <View style={styles.fieldContainer}>
+        <View style={[styles.fieldContainer, style]}>
             <Text style={styles.fieldName}>{fieldName}</Text>
-            {type === 'password' &&
-                <PasswordInput
+            <View style={styles.inputContainer}>
+                <TextInput
                     style={styles.inputField}
                     placeholder={placeholder}
-                    isFilled={isFilled}
-                    handleTextChange={handleTextChange}
+                    onChangeText={onChangeText}
                 />
-            }
-            {type === 'text' &&
-                <PlainTextInput
-                    style={styles.inputField}
-                    placeholder={placeholder}
-                    isFilled={isFilled}
-                    handleTextChange={handleTextChange}
-                />
-            }
-        </View>
-    )
-}
-
-const PasswordInput = ({ style, placeholder, isFilled, handleTextChange }) => {
-    return (
-        <View style={[styles.inputContainer, { borderColor: isFilled ? 'black' : '#BDBDBD' }]}>
-            <TextInput
-                style={style}
-                placeholder={placeholder}
-                placeholderTextColor={'#BDBDBD'}
-                onChangeText={handleTextChange}
-            />
-        </View>
-    )
-}
-
-const PlainTextInput = ({ style, placeholder, isFilled, handleTextChange }) => {
-    return (
-        <View style={[styles.inputContainer, { borderColor: isFilled ? '#000' : '#BDBDBD' }]}>
-            <TextInput
-                style={style}
-                placeholder={placeholder}
-                placeholderTextColor={'#BDBDBD'}
-                onChangeText={handleTextChange}
-            />
+            </View>
         </View>
     )
 }
@@ -69,9 +29,8 @@ const styles = StyleSheet.create({
     },
 
     inputContainer: {
-        backgroundColor: '#fff',
         borderWidth: 3,
-        borderColor: '#BDBDBD',
+        borderColor: 'black',
         borderRadius: 8,
         paddingHorizontal: 8,
     },
