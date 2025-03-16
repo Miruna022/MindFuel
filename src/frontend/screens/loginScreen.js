@@ -55,7 +55,7 @@ export const LoginScreen = () => {
                     <TouchableOpacity>
                         <Text
                             style={styles.pressableLogInText}
-                            onPress={() => navigator.navigate('Register')}
+                            onPress={() => navigator.navigate('createAccount')}
                         >Create account</Text>
                     </TouchableOpacity>
                 </View>
