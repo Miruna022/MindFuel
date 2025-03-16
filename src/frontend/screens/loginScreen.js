@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {View, Text, StyleSheet, SafeAreaView, Alert, TextInput} from "react-native";
+import {View, Text, StyleSheet, SafeAreaView, Alert, TextInput, TouchableOpacity} from "react-native";
 import {Button} from "../components/Button";
 import {LogoBanner} from "../components/LogoBanner";
 import {InputField} from "../components/InputField";
@@ -50,6 +50,15 @@ export const LoginScreen = () => {
                     buttonStyle={{backgroundColor: '#C3B1E3'}}
                     onPress={() => signIn({email: email.trim(), password: password.trim()})}
                 />
+                <View style={{flexDirection: 'row', paddingHorizontal: 12}}>
+                    <Text style={styles.logInText}>Dont' have an account? </Text>
+                    <TouchableOpacity>
+                        <Text
+                            style={styles.pressableLogInText}
+                            onPress={() => navigator.navigate('Register')}
+                        >Create account</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         </SafeAreaView>
     );
