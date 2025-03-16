@@ -6,6 +6,7 @@ import {InputField} from "../components/InputField";
 import {auth} from "../firebase/config";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import {useNavigation} from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const LoginScreen = () => {
 
@@ -17,8 +18,9 @@ export const LoginScreen = () => {
 
     const signIn = async ({email, password}) => {
         try {
-            console.log(`Received email: ${email} and password: ${password}`)
             await signInWithEmailAndPassword(auth, email, password);
+            // Save the user's login status, to retrieve later in app initialization
+            await AsyncStorage.setItem('userLoggedIn', 'true')
             navigator.navigate('Courses')
         } catch (error) {
             Alert.alert("Error when logging into account",
