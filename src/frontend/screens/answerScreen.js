@@ -71,7 +71,6 @@ export const AnswerScreen = () => {
 
             const fileBlob = new Blob([JSON.stringify(jsonData, null, 2)], { type: "application/json" });
 
-
             await uploadBytes(pathReference, fileBlob);
             console.log("JSON file uploaded successfully:", filepath);
         } catch (error) {
