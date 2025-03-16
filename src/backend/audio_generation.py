@@ -6,8 +6,7 @@ import shared_variable
 # Get device
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
-# List available 🐸TTS models
-print(TTS().list_models())
+
 
 # Initialize TTS
 tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2").to(device)
@@ -23,12 +22,13 @@ print(tts.speakers)
 
 
 # TTS to a file, use a preset speaker
-def create_audio(file_path,text_segment):
-  tts.tts_to_file(
-    text= text_segment,
-    speaker="Craig Gutsy",
-    language="en",
-    file_path=file_path
-  )
+def create_audio(file_path,text_segment,speed):
+        tts.tts_to_file(
+              text=text_segment,
+              speaker="Craig Gutsy",
+              language="en",
+              file_path=file_path,
+              speed= speed
+      )
 
 

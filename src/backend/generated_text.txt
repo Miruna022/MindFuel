@@ -1,0 +1,15 @@
+Chapter_Name: What is a Cell?
+Cells are the basic building blocks of all living things. They consist of a cytoplasm enclosed within a membrane and often contain organelles. Robert Hooke named them in 1665. [ITFEST_MINDFUEL]
+Let's keep things light and remember, cells are like tiny, amazing cities!
+
+Chapter_Name: Prokaryotic Cells
+These cells, found in bacteria and archaea, are the first form of life on Earth. They lack a nucleus and other membrane-bound organelles. Their DNA is a single, circular chromosome found in a region called the nucleoid. They can have flagella and pili for movement and communication. [ITFEST_MINDFUEL]
+Think of prokaryotic cells as super speedy, independent little guys – no need for a central control room!
+
+Chapter_Name: Eukaryotic Cells
+These cells, found in plants, animals, fungi, algae, and protozoa, are larger and more complex than prokaryotic cells. They have a nucleus that houses their DNA, a key difference. They contain membrane-bound organelles like mitochondria and chloroplasts. Some eukaryotic cells have cell walls, while others have cilia. [ITFEST_MINDFUEL]
+Eukaryotic cells are like well-organized offices with specialized departments – pretty cool, right?
+
+Chapter_Name: Key Differences
+Prokaryotic cells lack a nucleus, while eukaryotic cells have one. Eukaryotic cells are compartmentalized with organelles, whereas prokaryotic cells are not. Eukaryotic DNA is linear and associated with histone proteins, while prokaryotic DNA is circular. [ITFEST_MINDFUEL]
+Basically, it’s all about organization! Prokaryotes are simple and efficient, while eukaryotes have a more complex structure.

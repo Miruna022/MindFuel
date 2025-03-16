@@ -4,7 +4,7 @@ from firebase_admin import storage
 
 
 
-cred = credentials.Certificate('/home/stefars/Downloads/mindfuel-dd636-firebase-adminsdk-fbsvc-23a1ade7c2.json')
+cred = credentials.Certificate('./mindfuel-dd636-firebase-adminsdk-fbsvc-23a1ade7c2.json')
 
 firebase_admin.initialize_app(cred, {
     'storageBucket': "mindfuel-dd636.firebasestorage.app"
@@ -38,11 +38,7 @@ def display_contents(location_in_db):
         print(blob.name if location_in_db in blob.name[:-1] else "")
 
 
-get("USER_DATA/user_1/PDF_DATA/pdf_1/AUDIO/audio_0","audio0.wav")
-get("USER_DATA/user_1/PDF_DATA/pdf_1/AUDIO/audio_1","audio1.wav")
 
 
-
-
-#Still frontend put("USER_DATA/USER_(ID)/PDF_DATA/PDF_(ID)/raw.pdf","pdf_to_upload.pdf")
+#Still frontend put("USER_DATA/USER_(ID)/PDF_DATA/PDF_(ID)/materie/raw.pdf","pdf_to_upload.pdf")
 #Frontend calls the api

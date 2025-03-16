@@ -1,176 +1,153 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, Modal, Button, Alert } from "react-native";
-import CourseFolder from "../components/CourseFolder";
+import React, { useState, useEffect } from "react";
+import {
+    StyleSheet,
+    Text,
+    View,
+    TouchableOpacity,
+    TextInput,
+    Alert,
+    FlatList,
+    ActivityIndicator,
+    ScrollView, RefreshControl
+} from "react-native";
+import {auth, storage} from "../firebase/config";
+import { ref, listAll, uploadBytes } from "firebase/storage";
+import {useNavigation} from '@react-navigation/native';
+import AntDesign from '@expo/vector-icons/AntDesign';
 
-const CoursesScreen = () => {
-    const [courseData, setCourseData] = useState([
-        { title: "Math 101", color: "#e27c7c" },
-        { title: "History 201", color: "#e2b97c" },
-        { title: "Science 301", color: "#ade27c" },
-        { title: "Literature 401", color: "#7c9ce2" },
-        { title: "Art 501", color: "#bd7ce2" },
-    ]);
+export const SectionsScreen = () => {
+    const navigation = useNavigation();
+    const [sections, setSections] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [newSectionName, setNewSectionName] = useState("");
 
-    const [showModal, setShowModal] = useState(false);
-    const [courseName, setCourseName] = useState("");
-    const [courseColor, setCourseColor] = useState("#C3B1E1"); // default color for new courses
+    const userEmail = auth.currentUser?.email;
 
-    // Add new course handler
-    const handleAddCourse = () => {
-        if (courseName.trim() === "") {
-            Alert.alert("Error", "Course name cannot be empty!");
+    const fetchSections = async () => {
+        try {
+            setLoading(true);
+            const userStorageRef = ref(storage, `USER_DATA/${userEmail}/PDF_DATA`);
+            const result = await listAll(userStorageRef);
+
+            const sectionsSet = new Set();
+
+            result.prefixes.forEach((folderRef) => {
+                sectionsSet.add(folderRef.name);
+            });
+
+            setSections(Array.from(sectionsSet));
+        } catch (error) {
+            console.error("Error fetching sections:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchSections();
+    }, []);
+
+    const createSection = async () => {
+        if (!newSectionName.trim()) {
+            Alert.alert("Error", "Section name cannot be empty.");
             return;
         }
-        if (!/^#[0-9A-F]{6}$/i.test(courseColor)) {
-            Alert.alert("Error", "Please provide a valid hex color code!");
-            return;
+
+        try {
+            const sectionRef = ref(storage, `USER_DATA/${userEmail}/PDF_DATA/${newSectionName}/.placeholder.txt`);
+            const dummyFile = new Blob(["placeholder title"], { type: "text/plain" });
+
+            await uploadBytes(sectionRef, dummyFile);
+
+            setNewSectionName("");
+        } catch (error) {
+            console.error("error creating section:", error);
+            Alert.alert("Error", "Failed to create section.");
         }
-        setCourseData((prevCourses) => [
-            ...prevCourses,
-            { title: courseName, color: courseColor },
-        ]);
-        setCourseName("");
-        setShowModal(false);
+        await fetchSections();
     };
 
     return (
-        <View style={styles.container}>
+        <View style = {styles.container}>
             <Text style={styles.header}>My Courses</Text>
-
-            {/* Course Folders */}
-            <View style={styles.folderContainer}>
-                {courseData.map((course, index) => (
-                    <CourseFolder
-                        key={index}
-                        title={course.title}
-                        color={course.color}
-                        onPress={() => console.log(`${course.title} folder pressed`)}
+            {loading ? (
+                <ActivityIndicator size="large" color="#0000ff" />
+            ) : sections.length > 0 ? (
+                <View style={styles.folderContainer}>
+                    <FlatList
+                              data={sections}
+                              keyExtractor={(item) => item}
+                              numColumns={2}
+                              renderItem={({ item }) => (
+                                  <TouchableOpacity style={styles.folder} onPress={() => navigation.navigate("Section", { sectionName: item })}>
+                                      <Text style={styles.text}>{item}</Text>
+                                  </TouchableOpacity>
+                              )}
                     />
-                ))}
-            </View>
-
-            {/* Add New Course Button */}
-            <TouchableOpacity
-                style={styles.addButton}
-                onPress={() => setShowModal(true)} // Open to add new course
-            >
-                <Text style={styles.addButtonText}>+</Text>
-            </TouchableOpacity>
-
-            {/* Modal for adding new course */}
-            <Modal visible={showModal} animationType="slide" transparent={true}>
-                <View style={styles.modalOverlay}>
-                    <View style={styles.modalContent}>
-                        <Text style={styles.modalHeader}>Add New Course</Text>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Course Name"
-                            value={courseName}
-                            onChangeText={setCourseName}
-                        />
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Course Color (Hex Code)"
-                            value={courseColor}
-                            onChangeText={setCourseColor}
-                        />
-                        <TouchableOpacity style={styles.addCourseButton} onPress={handleAddCourse}>
-                            <Text style={styles.addButtonText}>Add Course</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.cancelButton}
-                            onPress={() => setShowModal(false)}
-                        >
-                            <Text style={styles.addButtonText}>Cancel</Text>
-                        </TouchableOpacity>
-                    </View>
                 </View>
-            </Modal>
+            ) : (
+                <Text>No sections found.</Text>
+            )}
+            <TextInput
+                style={styles.input}
+                placeholder="Enter section name"
+                value={newSectionName}
+                onChangeText={setNewSectionName}
+            />
+            <TouchableOpacity style={styles.addButton} onPress={() => createSection()}>
+                <AntDesign name="pluscircle" size={64} color="black" />
+            </TouchableOpacity>
         </View>
-    );
+    )
 };
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#fff",
-        alignItems: "center",
-        justifyContent: "flex-start", // align items from the top
+        backgroundColor: "#EAE2F3",
         padding: 20,
+        alignItems: "center",
     },
     header: {
-        fontSize: 30,
-        fontWeight: "bold",
-        marginTop: 40,
-        marginBottom: 20,
-        marginVertical: 10,
+        textAlign: "center",
+        fontSize: 32,
+        fontFamily: "Inter-Bold",
+        paddingTop: 50,
+        marginBottom: 30,
     },
     folderContainer: {
-        flexDirection: "row",
-        flexWrap: "wrap", // allow items to go to the next line
-        justifyContent: "flex-start", // align folders from left to right
-        width: "90%",
-        marginBottom: 20,
+        flexWrap: "wrap",
+        width: "100%",
+        marginBottom: 8,
+    },
+    folder: {
+        padding: 10,
+        width: 150,
+        height: 100,
+        backgroundColor: "#C3B1E1",
+        marginHorizontal: 7,
+        borderRadius: 15,
+        alignItems: "center",
+        justifyContent: "center",
+        borderWidth: 3,
+        marginBottom: 12,
     },
     addButton: {
-        backgroundColor: "#D3D3D3",
-        borderRadius: 10,
-        width: 90,
-        height: 90,
+        borderRadius: 50,
+        alignItems: "center",
         justifyContent: "center",
-        alignItems: "center",
-        marginTop: 10,
-        marginLeft: 10,
-        marginBottom: 20,
+        marginTop: 20,
     },
-    addButtonText: {
-        color: "#fff",
-        fontSize: 40,
-        fontWeight: "bold",
-    },
-    modalOverlay: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "rgba(0, 0, 0, 0.5)",
-    },
-    modalContent: {
-        width: 300,
-        padding: 20,
-        backgroundColor: "white",
-        borderRadius: 10,
-        alignItems: "center",
-        borderWidth: 1,
-        borderColor: "#ccc",
-    },
-    modalHeader: {
-        fontSize: 23,
-        fontWeight: "bold",
-        marginBottom: 20,
+
+    text: {
+        fontSize: 18,
+        fontFamily: "Inter-SemiBold",
+        textAlign: "center",
     },
     input: {
-        width: "100%",
-        padding: 10,
-        marginBottom: 10,
-        borderWidth: 1,
-        borderRadius: 5,
-        borderColor: "#ccc",
-    },
-    addCourseButton: {
-        backgroundColor: "#BD7CE2",
-        borderRadius: 13,
-        padding: 5,
-        width: "80%",
-        alignItems: "center",
-        marginVertical: 10,
-    },
-    cancelButton: {
-        backgroundColor: "#E27C7C",
-        borderRadius: 13,
-        padding: 4,
-        width: "60%",
-        alignItems: "center",
-    },
+        marginTop: 40,
+        borderRadius: 8,
+        borderWidth: 2,
+        paddingHorizontal: 50,
+    }
 });
-
-export default CoursesScreen;
