@@ -160,8 +160,16 @@ export const SectionDetailsScreen = ({route}) => {
                 .then(response => {
                     response.json()
                         .then(data => {
-                            console.log(data)
-                            Alert.alert("Podcasts","Podcasts generated successfully!");
+                            if (data.code.includes("202")) {
+                                Alert.alert("Podcasts","Podcasts generated successfully!");
+                                return;
+                            } else if (data.code.includes("500")) {
+                                Alert.alert("Podcasts","Something went wrong, please try again!");
+                                return;
+                            } else if (data.code.includes("404")) {
+                                Alert.alert("Podcasts","Document contains illegal content! Please try again with another document!");
+                                return;
+                            }
                         });
                 })
         } catch (error) {
