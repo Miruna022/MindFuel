@@ -1,11 +1,30 @@
-import React from "react";
-import {View, Text, StyleSheet, SafeAreaView, ImageBackground, Alert} from "react-native";
+import React, {useState} from "react";
+import {View, Text, StyleSheet, SafeAreaView, Alert, TextInput} from "react-native";
 import {Button} from "../components/Button";
 import {LogoBanner} from "../components/LogoBanner";
 import {InputField} from "../components/InputField";
-import {Link} from "@react-navigation/native"
+import {auth} from "../firebase/config";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import {useNavigation} from "@react-navigation/native";
 
 export const LoginScreen = () => {
+
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [loading, setLoading] = useState(false)
+
+    const navigator = useNavigation()
+
+    const signIn = async ({email, password}) => {
+        try {
+            console.log(`Received email: ${email} and password: ${password}`)
+            await signInWithEmailAndPassword(auth, email, password);
+            navigator.navigate('Courses')
+        } catch (error) {
+            Alert.alert("Error when logging into account",
+                "Failed to log in into the account: " + error)
+        }
+    }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -14,9 +33,21 @@ export const LoginScreen = () => {
                 <Text style={styles.titleText}>Welcome back!</Text>
             </View>
             <View style={styles.authContainer}>
-                <InputField fieldName={'Enter your email'} placeholder={'e.g. john.doe@gmail.com'} type={'text'}/>
-                <InputField fieldName={'Enter your password'} placeholder={''} type={'password'}/>
-                <Button text={'Sign in'} style={{width: '100%', paddingHorizontal: '12', marginBottom: '12'}} buttonStyle={{backgroundColor: '#C3B1E3'}}/>
+                <InputField
+                    fieldName={"Enter your email"}
+                    placeholder={"e.g. john.doe@gmail.com"}
+                    onChangeText={setEmail}
+                />
+                <InputField
+                    fieldName={"Create a password"}
+                    onChangeText={setPassword}
+                />
+                <Button
+                    text={'Sign in'}
+                    style={{width: '100%', paddingHorizontal: '12', marginBottom: '12'}}
+                    buttonStyle={{backgroundColor: '#C3B1E3'}}
+                    onPress={() => signIn({email: email.trim(), password: password.trim()})}
+                />
             </View>
         </SafeAreaView>
     );
@@ -26,7 +57,7 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: '#fff',
         flex: 1,
-        paddingTop: 50,
+        paddingTop: 20
     },
 
     authContainer: {
