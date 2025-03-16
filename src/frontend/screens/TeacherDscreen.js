@@ -13,7 +13,7 @@ export const TeacherDscreen = () => {
             <Image source={require("../assets/profD.png")} style={styles.professorImage} />
 
             <View style={styles.card}>
-                <Text style={styles.cardTitle}>Friendly Professor</Text>
+                <Text style={styles.cardTitle}>The Coach</Text>
                 <Text style={styles.cardText}>• Casual, fun, and engaging approach</Text>
                 <Text style={styles.cardText}>• Encourages learning through humor</Text>
             </View>
