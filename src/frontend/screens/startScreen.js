@@ -2,7 +2,6 @@ import {useState} from "react";
 import { View, Text, StyleSheet, SafeAreaView, ImageBackground } from "react-native";
 import {Button} from "../components/Button";
 import {useNavigation} from "@react-navigation/native";
-import {AddCourseDialog} from "../components/AddCourseDialog";
 
 export const StartScreen = () => {
 
@@ -24,10 +23,8 @@ export const StartScreen = () => {
                     <Text style={styles.mottoTitle}>A fun new way to learn</Text>
                     <Text style={styles.mottoSubtitle}>All in your pocket</Text>
                 </View>
-                <Button text="Start now!"
-                        onPress={() => navigation.navigate('CreateAccount')}
+                <Button text="Start now!" onPress={() => navigation.navigate('CreateAccount')}
                 />
-                {dialogVisible && <AddCourseDialog/>}
             </View>
             </ImageBackground>
         </SafeAreaView>
