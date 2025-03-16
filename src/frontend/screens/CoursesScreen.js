@@ -14,7 +14,6 @@ import {auth, storage} from "../firebase/config";
 import { ref, listAll, uploadBytes } from "firebase/storage";
 import {useNavigation} from '@react-navigation/native';
 import AntDesign from '@expo/vector-icons/AntDesign';
-import {BackButton} from "../components/BackButton";
 
 export const SectionsScreen = () => {
     const navigation = useNavigation();
@@ -22,28 +21,27 @@ export const SectionsScreen = () => {
     const [loading, setLoading] = useState(true);
     const [newSectionName, setNewSectionName] = useState("");
 
-    // const userEmail = auth.currentUser?.email
-    const userEmail = "demo@live.com";
+    const userEmail = auth.currentUser?.email;
 
-        const fetchSections = async () => {
-            try {
-                setLoading(true);
-                const userStorageRef = ref(storage, `USER_DATA/${userEmail}/PDF_DATA`);
-                const result = await listAll(userStorageRef);
+    const fetchSections = async () => {
+        try {
+            setLoading(true);
+            const userStorageRef = ref(storage, `USER_DATA/${userEmail}/PDF_DATA`);
+            const result = await listAll(userStorageRef);
 
-                const sectionsSet = new Set();
+            const sectionsSet = new Set();
 
-                result.prefixes.forEach((folderRef) => {
-                    sectionsSet.add(folderRef.name);
-                });
+            result.prefixes.forEach((folderRef) => {
+                sectionsSet.add(folderRef.name);
+            });
 
-                setSections(Array.from(sectionsSet));
-            } catch (error) {
-                console.error("Error fetching sections:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
+            setSections(Array.from(sectionsSet));
+        } catch (error) {
+            console.error("Error fetching sections:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
         fetchSections();
@@ -60,16 +58,13 @@ export const SectionsScreen = () => {
             const dummyFile = new Blob(["placeholder title"], { type: "text/plain" });
 
             await uploadBytes(sectionRef, dummyFile);
-            Alert.alert("Success", `Section "${newSectionName}" created successfully!`);
+
             setNewSectionName("");
         } catch (error) {
             console.error("error creating section:", error);
             Alert.alert("Error", "Failed to create section.");
-        } finally {
-            useEffect(() => {
-                fetchSections();
-            }, []);
         }
+        await fetchSections();
     };
 
     return (

@@ -6,10 +6,11 @@ import {BackButton} from "../components/BackButton";
 import {NextButton} from "../components/NextButton";
 import {useNavigation} from '@react-navigation/native';
 import {getStorage, ref, uploadBytes} from "firebase/storage";
+import { auth } from "../firebase/config";
 
 export const AnswerScreen = () => {
     const navigation = useNavigation();
-    const userEmail = "demo@live.com";
+    const userEmail = auth.currentUser?.email;
     const [selectedAnswers, setSelectedAnswers] = useState({});
     const [indexQ, setIndexQ] = useState(0);
     const [preferenceCount, setPreferenceCount] = useState({});
@@ -67,13 +68,12 @@ export const AnswerScreen = () => {
         const pathReference = ref(storage, filepath);
 
         try {
-            // Convert JSON data to a Blob
+
             const fileBlob = new Blob([JSON.stringify(jsonData, null, 2)], { type: "application/json" });
 
-            // Upload JSON file to Firebase
+
             await uploadBytes(pathReference, fileBlob);
             console.log("JSON file uploaded successfully:", filepath);
-            Alert.alert("Success", "Preferences saved successfully!");
         } catch (error) {
             console.error("Error when uploading JSON file:", error);
         }
@@ -81,11 +81,11 @@ export const AnswerScreen = () => {
 
     const handleSave = async () => {
         try {
-            // Save data to AsyncStorage
+
             await AsyncStorage.setItem('userAnswers', JSON.stringify(selectedAnswers));
             await AsyncStorage.setItem('userPreference', JSON.stringify(preferenceLetters));
 
-            // Determine the highest preference count
+
             const maxCount = Math.max(...Object.values(preferenceCount));
             const maxLetters = Object.entries(preferenceCount)
                 .filter(([letter, count]) => count === maxCount)
@@ -95,7 +95,7 @@ export const AnswerScreen = () => {
             const chosen = finalLetter[0];
 
             let teacher;
-            // Navigate based on the chosen preference
+
             if (chosen.length === 1) {
                 if (chosen === 'A') {
                     navigation.navigate('TeacherA');
@@ -112,12 +112,11 @@ export const AnswerScreen = () => {
                 }
             }
 
-            // Create JSON data
+
             const jsonData = {
                 teacher,
             };
 
-            // Upload JSON file to Firebase
             const filePath = `USER_DATA/${userEmail}/SETTINGS/preferences.json`;
             await addJSON(jsonData, filePath);
 

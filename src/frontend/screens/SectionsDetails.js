@@ -11,7 +11,9 @@ import {useNavigation} from "@react-navigation/native";
 export const SectionDetailsScreen = ({route}) => {
     const sectionName = route.params.sectionName;
     const navigation = useNavigation();
-    const userEmail = "demo@live.com";
+
+    const userEmail = auth.currentUser?.email;
+
     const [sections, setSections] = useState([]);
     const [audiosBySection, setAudiosBySection] = useState({});
     const [loading, setLoading] = useState(true);
