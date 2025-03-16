@@ -5,9 +5,11 @@ import {AnswerButton} from "../components/AnswerButton";
 import {BackButton} from "../components/BackButton";
 import {NextButton} from "../components/NextButton";
 import {useNavigation} from '@react-navigation/native';
+import {getStorage, ref, uploadBytes} from "firebase/storage";
 
 export const AnswerScreen = () => {
     const navigation = useNavigation();
+    const userEmail = "demo@live.com";
     const [selectedAnswers, setSelectedAnswers] = useState({});
     const [indexQ, setIndexQ] = useState(0);
     const [preferenceCount, setPreferenceCount] = useState({});
@@ -60,29 +62,65 @@ export const AnswerScreen = () => {
             })
         }
     };
+    const addJSON = async (jsonData, filepath) => {
+        const storage = getStorage();
+        const pathReference = ref(storage, filepath);
+
+        try {
+            // Convert JSON data to a Blob
+            const fileBlob = new Blob([JSON.stringify(jsonData, null, 2)], { type: "application/json" });
+
+            // Upload JSON file to Firebase
+            await uploadBytes(pathReference, fileBlob);
+            console.log("JSON file uploaded successfully:", filepath);
+            Alert.alert("Success", "Preferences saved successfully!");
+        } catch (error) {
+            console.error("Error when uploading JSON file:", error);
+        }
+    };
 
     const handleSave = async () => {
         try {
+            // Save data to AsyncStorage
             await AsyncStorage.setItem('userAnswers', JSON.stringify(selectedAnswers));
             await AsyncStorage.setItem('userPreference', JSON.stringify(preferenceLetters));
 
+            // Determine the highest preference count
             const maxCount = Math.max(...Object.values(preferenceCount));
-            const maxLetters = Object.entries(preferenceCount).filter(([letter, count]) => count === maxCount).map(([letter]) => letter);
+            const maxLetters = Object.entries(preferenceCount)
+                .filter(([letter, count]) => count === maxCount)
+                .map(([letter]) => letter);
 
             const finalLetter = maxLetters.length > 1 ? prioritize(maxLetters) : maxLetters;
             const chosen = finalLetter[0];
 
+            let teacher;
+            // Navigate based on the chosen preference
             if (chosen.length === 1) {
                 if (chosen === 'A') {
                     navigation.navigate('TeacherA');
+                    teacher = "Story";
                 } else if (chosen === 'B') {
                     navigation.navigate('TeacherB');
+                    teacher = "Mentor";
                 } else if (chosen === 'C') {
                     navigation.navigate('TeacherC');
+                    teacher = "Direct";
                 } else if (chosen === 'D') {
                     navigation.navigate('TeacherD');
+                    teacher = "Friendly";
                 }
             }
+
+            // Create JSON data
+            const jsonData = {
+                teacher,
+            };
+
+            // Upload JSON file to Firebase
+            const filePath = `USER_DATA/${userEmail}/SETTINGS/preferences.json`;
+            await addJSON(jsonData, filePath);
+
         } catch (error) {
             console.error("Error saving answers: ", error);
         }

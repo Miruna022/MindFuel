@@ -13,7 +13,8 @@ import {
 import {auth, storage} from "../firebase/config";
 import { ref, listAll, uploadBytes } from "firebase/storage";
 import {useNavigation} from '@react-navigation/native';
-
+import AntDesign from '@expo/vector-icons/AntDesign';
+import {BackButton} from "../components/BackButton";
 
 export const SectionsScreen = () => {
     const navigation = useNavigation();
@@ -99,7 +100,7 @@ export const SectionsScreen = () => {
                 onChangeText={setNewSectionName}
             />
             <TouchableOpacity style={styles.addButton} onPress={() => createSection()}>
-                <Text style={styles.addButtonText}>+</Text>
+                <AntDesign name="pluscircle" size={64} color="black" />
             </TouchableOpacity>
         </View>
     )
@@ -137,22 +138,21 @@ const styles = StyleSheet.create({
         marginBottom: 12,
     },
     addButton: {
-        backgroundColor: "#ADADAD",
-        width: 80,
-        height: 80,
         borderRadius: 50,
         alignItems: "center",
         justifyContent: "center",
-        marginTop: 50,
+        marginTop: 20,
     },
-    addButtonText: {
-        color: "#fff",
-        fontSize: 40,
-        fontWeight: "bold"
-    },
+
     text: {
         fontSize: 18,
         fontFamily: "Inter-SemiBold",
         textAlign: "center",
+    },
+    input: {
+        marginTop: 40,
+        borderRadius: 8,
+        borderWidth: 2,
+        paddingHorizontal: 50,
     }
 });
