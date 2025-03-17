@@ -6,10 +6,12 @@ This project was made for ITFest 2025.
 
 ## Screenshots
 
-![AI teacher match quiz](src/frontend/assets/app_screenshot_quiz.jpg)
-![AI teacher match](src/frontend/assets/app_screenshot_matched_with.jpg)
-![AI teacher match quiz](src/frontend/assets/app_screenshot_courselist.jpg)
-<img src="src/frontend/assets/app_screenshot_podcasts.jpg" width="450" height = "998"/>
+<div style="flex-direction: row;">
+    <img src="src/frontend/assets/app_screenshot_quiz.jpg" width="450" height = "998" alt="Quiz"/>
+    <img src="src/frontend/assets/app_screenshot_matched_with.jpg" width="450" height = "998" alt="AI teacher match"/>
+    <img src="src/frontend/assets/app_screenshot_courselist.jpg" width="450" height = "998" alt="Courses"/>
+    <img src="src/frontend/assets/app_screenshot_podcasts.jpg" width="450" height = "998" alt="Podcasts"/>
+</div>
 
 ## Usage
 
