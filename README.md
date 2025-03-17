@@ -9,6 +9,7 @@ This project was made for ITFest 2025.
 ![AI teacher match quiz](src/frontend/assets/app_screenshot_quiz.jpg)
 ![AI teacher match](src/frontend/assets/app_screenshot_matched_with.jpg)
 ![AI teacher match quiz](src/frontend/assets/app_screenshot_courselist.jpg)
+![Podcasts](src/frontend/assets/app_screenshot_podcasts.jpg)
 
 ## Usage
 
