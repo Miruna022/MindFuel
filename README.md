@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="src/frontend/assets/logo.svg" width="450" alt="MindFuel logo"/>
+</p>
+
 # MindFuel
 
 MindFuel is a mobile application which allows you to generate AI podcasts based on uploaded PDF files.
