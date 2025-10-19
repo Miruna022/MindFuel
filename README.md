@@ -39,6 +39,6 @@ This project was made for ITFest 2025.
 
 - [@sebastiankalciov](https://www.github.com/sebastiankalciov) (Sebastian Kalciov)
 - [@stefars](https://www.github.com/stefars) (Ștefan Mitrea)
-- [@Miruna022](https://github.com/Miruna022) (Miruna Mesarașoiu)
+- [@Miruna022](https://github.com/Miruna022) (Miruna Mesaroșiu)
 - [@natalia-matiut](https://github.com/natalia-matiut) (Ana-Natalia Matiuț)
 - [@raulit-0o0](https://www.github.com/raulit-0o0) (Raul-Andrei Ariton)
